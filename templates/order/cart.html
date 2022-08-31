@@ -1,0 +1,66 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+
+
+{%block content%}
+
+<div  class="container mt-5 bg-light p-5">
+
+<h2 class="text-center box-title mb-5">my cart</h2>
+
+<hr>
+    {%if not request.user.is_authenticated or request.user.is_anonymous %}
+    {%elif order%}
+
+    
+  {%for line in orderdetails%}
+  <div style="float:right" class="d-flex">
+    <a  class=" mr-3 cart-btn2" href="{%url 'checkout' %}"> checkout</a> 
+      <a  href="{%url 'store' %}" class="cart-btn2">continue shopping</a>
+    </div><br><br>
+    
+  <div class="cart-table">
+    <table style=" 
+    overflow-x: auto;
+    white-space: nowrap;" class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">product</th>
+      <th scope="col">image</th>
+      <th scope="col">quantity</th>
+       <th scope="col">price</th>
+       <th scope="col">subtotals</th>
+        <th scope="col">control</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="text-center">
+      <th scope="row">{{forloop.counter}}</th>
+      <td >{{line.product.title}}</td>
+      <td><a href="{%url 'product_details' line.product.id line.product.slug %}"> <img src="{{line.product.image.url}}" style="width:80px;height:80px">  </td></a>
+
+      <td> <a href="{%url 'sub_qty' orderdetails_id=line.id %}" style="cursor:pointer" class="fas fa-minus "></a>  {{line.quantity}} <a href="{%url 'add_qty' orderdetails_id=line.id %}"  style="cursor:pointer" class="fas fa-plus "></a></td>
+      <td>{{line.price}} TL</td>
+      <td class=" font-weight-bold">{%widthratio line.quantity 1 line.price%} TL</td>
+        <td>
+            <a href="{%url 'remove_from_cart' orderdetails_id=line.id %}" class="cart-btn2-remove btn-sm">remove</a>
+        </td>
+    </tr>
+
+  {%empty%}
+  <h5 class="alert alert-warning">no details here</h5>
+    {%endfor%}
+  </tbody>
+</table>
+</div>
+    {%else%}
+
+    <h5 class="alert alert-warning">no details here </h5>
+    {%endif%}
+</div>
+{%include 'partials/footer.html' %}
+{%endblock%}
+
+

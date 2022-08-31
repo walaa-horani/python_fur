@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+
+
+
+{%block title %} search {% endblock %}
+
+{%block content%}
+
+
+
+    
+ 
+</div>
+
+<div class="container pro-con">
+  {%include 'partials/alerts.html' %}
+  
+
+    
+    <div class="container">
+      <div class="m-auto text-center">
+      <h5 class="mt-5 search-text"> <span class="text-muted ">search result for</span> <strong style="color:#f27a1b">{{request.GET.query}}</strong> </h5>
+    </div>
+    <div class="search-table">
+      
+          
+          <table class="table table-hover">
+            <thead>
+              
+              <tr>
+               
+                <th scope="col">product</th>
+                <th scope="col">category</th>
+                <th scope="col">price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for pro in products%}
+              <tr>
+                
+                <td> <a href="{%url 'product_details' pro.slug %}"><img src="{{pro.image.url}}" > </a> 
+                    <strong class="ml-2 text-dark">{{pro.title}}</strong>
+                </td>
+                <td class="text-dark">{{pro.category.title}}</td>
+                <td class="text-dark">{{pro.price}} TL</td>
+                
+              </tr>
+              
+              {%empty%}
+              <div class="text-center ">
+              <h6 class="alert alert-warning d-block w-100 ">
+                sorry we could'not find what you are looking for
+              </h6>
+            </div>
+            
+              {%endfor%}
+
+            </tbody>
+          </table>
+     
+    </div>
+</div>
+         
+              
+          
+    
+   
+   
+{%include 'partials/footer.html' %}
+
+              {%endblock%}

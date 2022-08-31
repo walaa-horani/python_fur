@@ -1,0 +1,87 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{% load widget_tweaks %}
+
+{%block title%}  contact us {%endblock%}
+
+{%block content%}
+
+<div class="contact-us mt-5 ">
+    <div class="title">
+        <h1>contact us</h1>
+    </div>
+    <div class="contact-p mt-3 mb-5">
+ <p>We are currently processing significantly higher order and enquiry volumes than usual. This means response times for enquiries may be delayed. We will reply to all enquiries, and we appreciate your patience. </p>
+
+    </div>
+    <div class="row text-center">
+        <div class="col-lg-4 col-md-4">
+            <div class="contact-box">
+                <i class="fa-solid fa-phone"></i>
+                <p>call us</p>
+                <div class="num">
+                    <h6>505 1121 303</h6>
+                </div>
+                <div class="date">
+                    <small>Mon-Fri 5 PM - 4 AM GMT+3</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="contact-box">
+                <i class="fa-brands fa-rocketchat"></i>
+                <p>Chat with us             </p>
+                <div class="num">
+                    <h6>live chat</h6>
+                </div>
+                <div class="date">
+                    <small>Mon-Fri 5 PM - 4 AM GMT+3</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="contact-box">
+                <i class="fa-solid fa-message"></i>
+                <p>Send us a message</p>
+                <div class="num">
+                    <h6>contact us</h6>
+                </div>
+                <div class="date">
+                    <small>Mon-Fri 5 PM - 4 AM GMT+3</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contact-box-mail">
+        <form action="" method="POST" novalidate>
+            {%csrf_token%}
+            {%include 'partials/alerts.html' %}
+            {%include 'partials/form.html' %}
+           <button class="cart-btn" type="submit">send</button>
+          
+           
+        </form>
+       
+    </div>
+    <div class="inqueries">
+        <div class="title">
+            <h1>bussines inqueries </h1>
+        </div>
+        <div class="inq-p">
+            <p>For trade inquiries, please contact walaa.horani@hotmail.com To apply to the trade program, visit Article Trade.
+                If you are an Article Trade customer and need information about your order(s) please contact our Trade team directly at +1-888-484-5121.
+                
+                </p>
+                <br>
+                For press inquiries, please contact press@article.com. Visit the Media Kit for brand assets and press resources.
+Interested in collaborating? Please contact partnerships@article.com.
+
+
+        </div>
+    </div>
+</div>
+{%include 'partials/footer.html' %}
+{%endblock%}

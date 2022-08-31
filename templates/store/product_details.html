@@ -1,0 +1,307 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block sidebar%}
+{%include 'partials/sidebar.html'%}
+{%endblock%}
+
+
+{%block title %} product-details {% endblock %}
+
+{%block content%}
+</div>
+<div class="container produt-det">
+    <div class="row  mt-5">
+   
+        <div class="col-md-7">
+          <div class="img-zoom-container">
+
+            <img data-zoom-image="{{products.image.url}}"  src="{{products.image.url}}" alt="" class="img-fluid" id="zoom">
+          </div>  
+        </div>
+
+        <div class="col-md-5">
+            {%if products.new == True%}
+            <button class="new-btn">new</button>
+            
+            {%endif%}
+            {%if products.featured == True%}
+            <button class=" featured-btn2">featured</button>
+            
+            {%endif%}
+        <h1 class="mt-3 mb-3">{{products.title}}</h1>  
+            {%if products.dis_price > 0%}
+        <strong ><del>{{products.price}} TL</strong></del> 
+        <strong class="dis_price">{{products.dis_price}} TL</strong> <br><br>
+        {%else%}
+        <strong class="">{{products.price}} TL</del> </strong><br><br>
+            {%endif%}
+            <div class="d-flex">
+            <strong class="mr-2">availability:  </strong> <p>In Stock</p></div>
+            <div class="d-flex mb-3">
+                <strong class="mr-2">manufacturer: </strong>{{products.Manufacturer}}  </div>
+            <div class="d-flex">
+            <strong class="mr-2">brand:</strong> <p>{{products.Manufacturer}}</p><br></div>
+
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima placeat animi accusamus mollitia vitae! Velit, quaerat modi fuga distinctio sapiente mollitia accusantium animi quidem ex?</p><br>
+            <form id="frmaddtocart" action="{%url 'add_to_cart'%}">
+           
+             <button type="button" class=" cart-btn  "  data-toggle="modal"  data-target="#staticBackdrop">add to cart</button>
+
+                        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <label>quantity:</label>
+                  <input type="text" class="form-control" name="qty" id="inputQty" required value="1">
+                  <input type="hidden" name="pro_id" value="{{products.id}}">
+                  <input type="hidden" name="price" value="{{products.price}}">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnclose">Close</button>
+                <button onclick="addtocart()" type="button" class="btn btn-primary">confirm</button>
+        
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class=" cart-btn cart-btn2 " href="{%url 'product_favourite' pro_id=products.id%}"><i class="fas fa-heart"></i> add to wishlist</a>
+
+                        </form>   
+                           
+        </div>
+     
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">images</button>
+      <button class="tablinks" onclick="openCity(event, 'Paris')">description</button>
+      <button class="tablinks" onclick="openCity(event, 'Tokyo')">reviews</button>
+    </div>
+
+    
+    
+    <div id="London" class="tabcontent cont1">
+      <div class="img-box">
+        {%for photo in photos%}
+        <a class="venobox" href="{{photo.image.url}}"><img src="{{photo.image.url}}" alt="image alt"/></a>
+        {%endfor%}
+       </div>
+    </div>
+    
+    <div id="Paris" class="tabcontent">
+      <p>{{products.description|safe}}</p>
+    </div>
+    
+    <div id="Tokyo" class="tabcontent">
+      {%for rs in comments%}
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <div class="userinfo">
+
+           
+            <i class="fas fa-user"></i>
+            <strong>{{rs.user.username}}</strong>
+          </div>
+          </div>
+
+          <div class="review-rating">
+            <i class="fa fa-star {%if rs.rate > 5 %} checked {%endif%}" ></i>
+            <i class="fa fa-star {%if rs.rate > 4 %} checked  {%endif%}"></i>
+            <i class="fa fa-star {%if rs.rate > 3 %} checked  {%endif%}"></i>
+            <i class="fa fa-star {%if rs.rate > 2 %} checked {%endif%}"></i>
+            <i class="fa fa-star {%if rs.rate > 1 %} checked {%endif%}"></i>
+            
+            
+        </div>
+        </div>
+        <div class="review-text ">
+          <small>{{rs.comment}}</small>
+         
+            </div>
+            {%empty%}
+            <span class="text-danger">no reviews yet. let's know your review</span>
+      {%endfor%}
+
+    </div>
+
+  </div><!----col 1-->
+  <div class="col-md-6">
+    <div class="review">
+      {%include 'partials/alerts.html'%}
+      <form class="review-form" action="/addcomment/{{products.slug}}" method="POST" >
+        {%csrf_token%}
+     
+        <textarea  name="comment" class="form-control"  id="" cols="30" rows="10" required>
+
+       </textarea>
+       <div class="d-flex align-items-center">
+        <strong class="mr-2">your review</strong>
+<div class="star-rating"> 
+<input type="radio" name="rate" id="star5" value="5"/><label for="star5"></label> 
+
+<input type="radio" name="rate" id="star4" value="4"/><label for="star4" class=""></label> 
+
+<input type="radio" name="rate" id="star3" value="3"/><label for="star3"></label> 
+
+<input type="radio" name="rate" id="star2" value="2"/><label for="star2" class=""></label> 
+
+<input type="radio" name="rate" id="star1" value="1"/><label for="star1"></label> 
+
+
+
+
+</div>
+
+
+    </div>
+    {%if request.user.is_authenticated and not request.user.is_anonymous%}
+    <button  class="cart-btn mt-4" type="submit">submit</button>
+   {%else%}
+   <small class="text-danger">you must be logged in to send  review </small>
+    {%endif%}
+</form>
+
+
+    </div>
+  </div><!----col 2-->
+</div><!----row-->
+
+<hr>
+<div class="real-life">
+  <div class="title">
+    <h3>our website in real life</h3>
+  </div>
+  
+  <div class="owl-carousel owl-theme walaa3">
+  
+    <div class="item">
+        
+       <img src="{%static 'img/67ce219b87b17f094aa2.jpg' %}" alt="">
+      
+    
+    </div>
+
+    <div class="item">
+        
+      <img src="{%static 'img/e83bfe210f9b3f6c6fbb.jpg' %}" alt="">
+     
+   
+   </div>
+
+   <div class="item">
+        
+    <img src="{%static 'img/6ca3d7d28abea15cbb59.jpg' %}" alt="">
+   
+ 
+ </div>
+
+ <div class="item">
+        
+  <img src="{%static 'img/b7979655bc4fc6661bee.jpg' %}" alt="">
+ 
+
+</div>
+
+<div class="item">
+        
+  <img src="{%static 'img/66f8e637486e4cb2ecc9.jpg' %}" alt="">
+ 
+
+</div>
+    
+</div></div>
+<hr>
+<div class="why">
+
+
+
+  <div class="title">
+    <h3>why buy from E-furniture</h3>
+  </div>
+  <div class="row text-center mt-5">
+    <div class="col-md-3">
+      <div class="details-box">
+        <i class="fa-solid fa-dollar-sign"></i><br>
+        <strong>Modern Furniture at Fair Prices
+        </strong>
+        <p>Our promise? High-quality furniture at radically lower (and much fairer) prices than comparable retailers.
+
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="details-box">
+        <i class="fa-solid fa-truck-fast"></i><br>
+        <strong>Free Shipping</strong>
+        <p>Orders of $999 or more qualify for free basic shipping within our standard service area.
+
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="details-box">
+        <i class="fa-solid fa-calendar"></i><br>
+        <strong>30-Day Satisfaction Guarantee
+        </strong>
+        <p>We’re confident you’ll love your new Article furniture, but just to make sure, you have 30 days to try it out.
+
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="details-box">
+        <i class="fa-solid fa-handshake-angle"></i><br>
+        <strong>We’re Here To Help
+        </strong>
+        <p>If questions arise, our friendly and knowledgeable Customer Care team is just a phone call, chat, or email away.
+
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<br>
+<hr>
+{%include 'partials/footer.html' %}
+  <script>
+    function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+function addtocart(){
+        document.getElementById("btnclose").click()
+        document.getElementById("frmaddtocart").submit();
+        
+            }
+</script>
+     
+    
+{%endblock%}

@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+
+{%block content%}
+
+<div class="container mt-5">
+  
+    <h1 class="text-center box-title">checkout</h1>
+    <div class="my-form profile-box mt-5">
+       
+    
+        {%include 'partials/alerts.html' %}
+
+            {%if not request.user.is_authenticated or  request.user.is_anonymous%}
+
+            <h5 class="alert alert-danger">your must be <a href="{%url 'login'%}">logged in</a></h5>
+              {%elif not order%}
+              <h4 class="alert alert-warning">no orders here</h4>
+            {%else%}
+            <form action="" method='POST'>
+              
+                {%csrf_token%}
+
+                <div class="d-flex justify-content-between align-items-center">
+                <strong>order number : {{order.id}}</strong>
+                <strong>product numbers : {{orderdetails.count}}</strong>
+                <strong>total : {{total}} TL</strong>
+                <a class="btn" href="{%url 'cart'%}">check my cart</a>
+               
+                </div>
+                <hr>
+          
+              <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">shipment address</label>
+                        <input name="ship_address" type="text" class="form-control" id="validationDefault01" value="{{ship_address}}" >
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">shipment phone</label>
+                        <input name="ship_phone" type="text" class="form-control" id="validationDefault02" value="{{ship_phone}}" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault03">card number</label>
+                        <input name="card_number" type="text" class="form-control" id="validationDefault03" value="{{card_number}}" placeholder="3333 3333 3333 3333">
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="validationDefault03">expire</label>
+                        <input name="expire" type="text" class="form-control" id="validationDefault03" value="{{expire}}" placeholder="MM/YY">
+
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="validationDefault05">security code</label>
+                        <input name="security_code"  value="{{security_code}}" type="text" class="form-control" id="validationDefault05" required>
+                      </div>
+                    </div>
+                    
+                    <button name="payment" class="btn btn-primary" type="submit">payment</button>
+        </form>
+      
+            {%endif%}
+    </div>  
+</div>
+
+
+{%endblock%}

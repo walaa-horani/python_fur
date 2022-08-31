@@ -1,0 +1,132 @@
+{%load static%}
+{% load mptt_tags %}
+
+
+        <div class="row">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            {%if page%}
+            <div class="col-lg-3 col-md-3 col-sm-12 nav-col">
+               
+                <ul class="big-menu">
+                    {% recursetree category %}
+                        <li class="d-block" style="width: 285px;">
+                            <a class="nav-link " href="/category/{{node.id}}/{{node.slug}}" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}>
+                            {{ node.title }} </a>
+                            <i class="fas fa-chevron-right"></i>
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                <a href="">{{ children }}</a>    
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                  
+                </ul>
+
+                <div class="boot-nav">
+
+               
+                <nav class="navbar  navbar-light ">
+                   
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                       <ul class="small-menu">
+                        <form action="{% url 'search' %}" method="GET">
+         
+                            <div class="input-group mb-3">
+                               
+                                <input name="query" type="text" class="form-control" placeholder="search " id="query" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <select name="cat" id="">
+                                  <option value="0"> Category</option>
+                                  {%for rs in category%}
+                                  <option value="{{rs.id}}">{{rs.title}}</option>
+                                  {%endfor%}
+                                  
+                                </select>
+                                <div class="input-group-append">
+                                  <button type="submit" class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></button>
+                                </div>
+                         
+                              </div>
+                            </form>
+                    {% recursetree category %}
+                   
+                        <li class="d-block" style="width: 285px;">
+                          
+                            <a class="nav-link " href="/category/{{node.id}}/{{node.slug}}" data-toggle="dropdown" aria-expanded="true" >
+                            {{ node.title }} </a>
+                           
+                           
+                            {% if not node.is_leaf_node %}
+                             
+                                <ul class="children">
+                                 
+                                 
+                                       {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                  
+                </ul>
+                     
+                    </div>
+                   
+                  </nav>
+                  
+                </div>
+
+                {%else%}
+                <div class="show-on-click">
+                <ul >
+                    {% recursetree category %}
+                        <li class="d-block" style="width: 285px;">
+                            <a class="nav-link " href="/category/{{node.id}}/{{node.slug}}" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}>
+                            {{ node.title }} </a>
+                            <i class="fas fa-chevron-right"></i>
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                  
+                </ul>
+            </div>
+                {%endif%}
+            </div>
+            
+    
+              
+                  
+              
+        
+ 
+       
+       
+ 
+            <script>
+                $(document).ready(function(){
+                  
+                $( "#query" ).autocomplete({
+                  source: '{% url "autocomplete" %}'
+                });
+            });
+            </script>

@@ -1,0 +1,115 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block title%}  about us {%endblock%}
+
+
+{%block content%}
+
+    <div class="about">
+
+
+    <div class="title">
+        <h1>about us</h3>
+    </div>
+    <br>
+        <p>In 2012, we started Urban Ladder with a vision - to make a million homes beautiful.
+            Back then, our catalogue featured just 35 designs. Yet, when our customers shared
+            photographs of their homes, we saw they were remarkably distinct. The same table, the
+            same chair was used differently by different people. This told us something. People
+            want their homes to be unique. We also realized that people are a lot happier creating
+            things than they are buying things. We are a creative, imaginative, expressive species.
+            And our homes are just one of the many canvases we have at our disposal.</p>
+
+            <br>
+            <p>Today, we understand that we’re here not just to sell well-designed products. We’re
+                here to help you create spaces that mirror who you are. At Urban Ladder, we want you
+                to discover the joy of creating. Starting with your home. We want you to think of the
+                setting up of a space as an energizing, creative pursuit. To breathe life into empty
+                rooms with your ideas. To take a few square feet of nothing, and transform it into
+                something beautiful.
+                
+                </p>
+                <br>
+                <div class="title">
+                    <h1>Our Values  </h3>
+                </div>
+<br>
+                <p>Customer Obsession: Customers are at the center of whatever we do at Urban Ladder. We ensure that we get the right customer solution in all our initiatives. We establish a long-term relationship with every customer and aim to delight them in every interaction. We aim to set the global benchmark for customer happiness scores.
+                </p>
+                <br>
+                <p>Honesty & Transparency: We are honest, ethical, and trustworthy in the way we
+                    live life. We hold the highest standards of corporate governance in all our
+                    activities. We communicate transparently with all our stakeholders. When we
+                    make mistakes, we are honest and upfront about owning up to them.
+                    </p>
+
+  
+
+
+<br>
+<section class="latest-box">
+    <div class="title">
+        <h1>popular across site!</h3>
+    </div>
+<div class="latest">
+    <div class="owl-carousel owl-theme">
+        {%for pro in product%}
+        {%if pro.popular == True%}
+        <div class="item">
+            <a href="{{pro.slug}}/{{pro.id}}">
+           <img src="{{pro.image.url}}" alt="">
+          
+        </a>
+      
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+</section>
+
+
+
+
+<hr>
+<section class="what-people-say">
+    <div class="title">
+      <h1>what people are saying</h3>
+    </div>
+    <div class="row mt-5">
+      {%for com in comment%}
+  
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card ">
+       <a href="/{{com.product.slug}}">   <img src="{{com.product.image.url}}" alt="" class="img-fluid"></a>
+          
+          <div class="d-flex">
+            <div>
+              <p></p>
+            </div>
+        
+          <div class="review-rating d-flex justify-content-center mt-4 ">
+   <i class="fa fa-star {%if com.rate > 5 %} checked {%endif%}" ></i>
+   <i class="fa fa-star {%if com.rate > 4 %} checked  {%endif%}"></i>
+   <i class="fa fa-star {%if com.rate > 3 %} checked  {%endif%}"></i>
+   <i class="fa fa-star {%if com.rate > 2 %} checked {%endif%}"></i>
+   <i class="fa fa-star {%if com.rate > 1 %} checked {%endif%}"></i>
+  
+  </div>
+          </div>
+          <p class="p-3">{{com.comment}}</p>
+       
+  
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  
+  </section>
+</div>
+  <hr>
+  {%include 'partials/footer.html' %}
+{%endblock%}
+
+           

@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block sidebar%}
+{%include 'partials/sidebar.html'%}
+{%endblock%}
+
+
+
+
+{%block content%}
+
+<div class="container">
+    <div class="row ">
+
+      {%for pro in product%}
+      {%if pro.popular == True %}
+              <div class="col-md-4 mb-2 mt-5">
+                <div class="card" style="width: w-100;">
+                <a href="{%url 'product_details' pro.slug %}">  <img src="{{pro.image.url}}" class="card-img-top img-fluid" alt="..."></a>
+                  <div class="card-body">
+                      <div class="new-flex">
+
+                    
+                    
+                    <small class="card-title text-truncate text-muted">{{pro.title}}</small><br>
+                   
+                </div>
+                    {%if pro.dis_price > 0%}
+                   <div class="new ">
+                     <del class="text-danger">{{pro.price}} TL</del>
+                     <strong>{{pro.dis_price}} TL</strong>
+                    
+                    
+              </div>
+                     {%else%}
+                     <strong>{{pro.price}} TL</strong>
+                     {%endif%}
+                    
+                  </div>
+                </div>
+              </div>
+              {%endif%}
+              {%endfor%}
+    </div>
+</div>
+
+
+
+{%include 'partials/footer.html' %}
+
+{%endblock%}

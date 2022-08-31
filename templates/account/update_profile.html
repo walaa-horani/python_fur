@@ -1,0 +1,72 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block title %} update profile {% endblock %}
+{%block content%}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-5 col-sm-12">
+      <div class="personal">
+        
+        <ul>
+          <li><a href="{%url 'show_orders'%}">my orders</a><i class="fa-solid fa-chevron-right"></i> </li>
+          <li><a href="{%url 'favourite_list'%}">my favourites</a><i class="fa-solid fa-chevron-right"></i></li>
+          <li><a href="{%url 'cart' %}">my cart</a><i class="fa-solid fa-chevron-right"></i></li>
+          <li><a href="{%url 'change_password'%}">change password</a><i class="fa-solid fa-chevron-right"></i></li>
+          <li><a href="{%url 'logout' %}">logout</a><i class="fa-solid fa-chevron-right"></i></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-7 col-sm-12">
+      <div class="profile">
+
+
+
+
+        <div class="account-box">
+            <div class="container">
+                <h6 class="text-center mb-5">My Account</h6>
+                <form method="post" novalidate>
+    
+                    {%csrf_token%}
+                    {%include 'partials/form.html'%}
+                   
+                    <div class="text-center">
+                    <button   type="submit" class=" mt-5 btn-blue">save changes</button>
+                </div>
+                </form>
+                
+            </div>
+        </div>
+        
+    </div>
+    </div>
+  </div>
+</div>
+{%block footer%}
+{%include 'partials/footer.html'%}
+{%endblock%}
+<div class="container">
+   
+    </div>
+<script>
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    </script>
+    
+{%endblock%}

@@ -1,0 +1,394 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block sidebar%}
+{%include 'partials/sidebar.html'%}
+{%endblock%}
+
+
+{%block slider%}
+{%include 'partials/slider.html'%}
+{%endblock%}
+
+{%block title %} Home {% endblock %}
+{%block content%}
+
+<div class="title">
+    
+    <h3>we think you will love these!</h3>
+
+</div>
+<hr>
+
+
+
+<section class="latest-box1">
+    
+<div class="latest">
+  <div class="see-all-btn">
+    <a href="{%url 'featured' %}" class="cart-btn mb-5 ">see all <i class="fa-solid fa-arrow-right"></i></a>
+
+  </div>
+    <div class="owl-carousel owl-theme mt-5">
+        {%for pro in product%}
+        {%if pro.featured == True%}
+        <div class="item">
+            <a href="{{pro.id}}/{{pro.slug}}">
+           <img src="{{pro.image.url}}" alt="">
+          
+        </a>
+      
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+</section>
+
+<hr>
+<div class="title">
+    <h3>take a look at our latest products</h3>
+   
+</div>
+{%for com in comments%}
+<img src="{{com.product.image.url}}" alt="">
+{{com.comment}}
+{{com.subject}}
+
+{%endfor%}
+
+<section class="latest-box">
+    <div class="container">
+
+   
+<div class="featured">
+    <div class="owl-carousel owl-theme walaa">
+        {%for pro in product%}
+        {%if pro.new == True%}
+        <div class="item">
+            <a href="{{pro.id}}/{{pro.slug}}">
+           <img src="{{pro.image.url}}" alt="">
+            <small>{{pro.title}}</small> <br>
+            <strong>{{pro.price}} TL</strong>   
+        </a>
+      
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+</section>
+<hr>
+
+<section class="latest-box">
+    <div class="title">
+        <h3>room ideas</h3>
+    </div>  
+    <div class="tabs">
+  <ul>
+<li id="tab1" class="active3" onClick="JavaScript:selectTab(1);">Living Room</li>
+<li id="tab2" onClick="JavaScript:selectTab(2);">dining Room</li>
+<li id="tab3" onClick="JavaScript:selectTab(3);">bedroom</li>
+<li id="tab4" onClick="JavaScript:selectTab(4);">outdoor</li>
+<li id="tab5" onClick="JavaScript:selectTab(5);">kitchen</li>
+</ul>
+</div>
+<br><br>
+
+<br><br>
+<div id="tab1Content">
+    <div class="owl-carousel owl-theme walaa2">
+       
+        <div class="item">
+           
+      <img src="{%static 'img/0d863fb0-1d93-4a31-91f3-f6949782bb19.jpg'%}" alt="">
+             
+        </div>
+
+        <div class="item">
+           
+            <img src="{%static 'img/7ad63d08-9456-451c-9641-7b21570b6137.jpg'%}" alt="">
+                   
+              </div>
+
+              <div class="item">
+           
+                <img src="{%static 'img/87e34ea6-3c10-49f3-b011-2e998161abe9.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/5822c4c1-77ec-4f70-8543-cd1d94efaf1d.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/49155175-4674-410d-a747-62c01ad95870.jpg'%}" alt="">
+                       
+                </div>
+       
+    </div>
+</div>
+<div id="tab2Content">
+    <div class="owl-carousel owl-theme walaa2">
+       
+        <div class="item">
+           
+      <img src="{%static 'img/ed5537de-eaf4-44d1-a316-e27efa63d4cb.jpg'%}" alt="">
+             
+        </div>
+
+        <div class="item">
+           
+            <img src="{%static 'img/16c7788f-8e52-4705-a3b5-623f9bfc9231.jpg'%}" alt="">
+                   
+              </div>
+
+              <div class="item">
+           
+                <img src="{%static 'img/23b169aa-3d46-4ac3-83a0-7ed74b700705.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/ff194b96-5f56-4c8e-8c6b-daacb1599b6e.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/393fabb5-7084-41a3-abab-25494ba45262.jpg'%}" alt="">
+                       
+                </div>
+       
+    </div>
+</div>
+<div id="tab3Content">
+    <div class="owl-carousel owl-theme walaa2">
+       
+        <div class="item">
+           
+      <img src="{%static 'img/958a6227-a3f4-4849-9c56-68537335f2cc.jpg'%}" alt="">
+             
+        </div>
+
+        <div class="item">
+           
+            <img src="{%static 'img/e3edb843-9e45-4ed7-9d25-b7eb78205ec4.jpg'%}" alt="">
+                   
+              </div>
+
+              <div class="item">
+           
+                <img src="{%static 'img/9d303d27-2bf7-47ea-9fa9-ca9b93b33b7a.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/7b17330d-590f-4b5d-a166-4e385922abea.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/49255160-4852-40a7-874d-a9750d7675a6.jpg'%}" alt="">
+                       
+                </div>
+       
+    </div>
+</div>
+<div id="tab4Content">
+    <div class="owl-carousel owl-theme walaa2">
+       
+        <div class="item">
+           
+      <img src="{%static 'img/c47cb426-d75d-4b65-bd31-2d85ace99f0b.jpg'%}" alt="">
+             
+        </div>
+
+        <div class="item">
+           
+            <img src="{%static 'img/23ce0ae8-79ff-46d8-948d-75bf3c994ece.jpg'%}" alt="">
+                   
+              </div>
+
+              <div class="item">
+           
+                <img src="{%static 'img/e82af76e-4656-4b41-9c04-f7fbf916962e.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/f7149d30-d039-442d-847e-ff4727780651.jpg'%}" alt="">
+                       
+                  </div>
+                  <div class="item">
+                  <img src="{%static 'img/92bbbbac-7d23-4896-b46b-8434661946b7.jpg'%}" alt="">
+                       
+                </div>
+       
+    </div>
+  </div>
+  <div id="tab5Content">
+    <div class="owl-carousel owl-theme walaa2">
+       
+        <div class="item">
+           
+      <img src="{%static 'img/f5792a5c-b84d-4df8-ac79-0e84ad273f82.jpg'%}" alt="">
+             
+        </div>
+
+        <div class="item">
+           
+            <img src="{%static 'img/85d83ac7-7cf0-4eeb-9c5f-2eb2983232ec.jpg'%}" alt="">
+                   
+              </div>
+
+              <div class="item">
+           
+                <img src="{%static 'img/dd25a0b4-832c-4ae1-b8a7-fac369b81580.jpg'%}" alt="">
+                       
+                  </div>
+                 
+                  
+
+               
+       
+    </div>
+  </div>
+  
+</section>
+
+<div class="details">
+  
+    <div class="row">
+      <div class=" col-lg-4 ">
+        <div class="details-box">
+          <i class="fa-solid fa-couch"></i>
+          <p>modern furniture at <br> nice priced</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="details-box  ">
+          <i class="fa-solid fa-gem"></i>
+          <p>designed to last</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="details-box  ">
+          <i class="fa-solid fa-truck-fast"></i>
+          <p>free, fast delivery on orders over $999</p>
+        </div>
+      </div>
+    </div>
+  
+</div>
+<hr>
+<section class="latest-box">
+    <div class="title">
+        <h3>popular across site!</h3>
+    </div>
+<div class="latest">
+  <div class="see-all-btn">
+    <a href="{%url 'popular' %}" class="cart-btn mb-5 ">see all <i class="fa-solid fa-arrow-right"></i></a>
+
+  </div>
+    <div class="owl-carousel owl-theme">
+        {%for pro in product%}
+        {%if pro.popular == True%}
+        <div class="item">
+            <a href="{{pro.id}}/{{pro.slug}}">
+           <img src="{{pro.image.url}}" alt="">
+          
+        </a>
+      
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+</section>
+
+
+
+<section class="modern">
+  <div class="black">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-sm-12">
+        <h1>Love modern furniture? Us too.
+        </h1>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <p>At E-furniture, we’re all about great style. Think sleek modular sofas, anything-but-basic beds, smart sideboards, and more — all designed with premium quality and comfort in mind.</p><br>
+        <p>Whether you’re into the crisp, cool lines of mid-century modern furniture</p>
+      </div>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-6">
+    <img src="{%static 'img/1yHVuqoF8kUXuOFmjsKfMm-3efdfea64530104da2676e02454c0335.jfif'%}" alt="">
+  </div>
+  <div class="col-md-6">
+    <div class="modern-text">
+      <h2>get new products and promotions <br> in your inbox.</h2>
+      <p>keep up with what we are up to.</p>
+      <div class="sub-flex">
+      <input placeholder="Enter Your Email" class="form-control w-50" type="email" name="" id="">
+      <button class="btn ">SUBSCRIBE</button>
+    </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+</div>
+
+<section class="video">
+  <a href="">
+  <video width="100%" controls autoplay loop>
+    <source src="{%static 'img/180261.mp4'%}" type="video/mp4">
+  </a>
+
+  </video>
+</section>
+<hr>
+<section class="what-people-say">
+    <div class="title">
+      <h3>what people are saying</h3>
+    </div>
+    <div class="container">
+
+
+    <div class="row mt-5">
+      {%for com in comment|slice:3%}
+  
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
+        <div class="card ">
+       <a href="{{com.product.slug}}">   <img src="{{com.product.image.url}}" alt="" class="img-fluid"></a>
+          
+          <div class="d-flex">
+            <div>
+              <p></p>
+            </div>
+        
+          <div class="review-rating d-flex justify-content-center mt-4 ">
+   <i class="fa fa-star {%if com.rate > 5 %} checked {%endif%}" ></i>
+   <i class="fa fa-star {%if com.rate > 4 %} checked  {%endif%}"></i>
+   <i class="fa fa-star {%if com.rate > 3 %} checked  {%endif%}"></i>
+   <i class="fa fa-star {%if com.rate > 2 %} checked {%endif%}"></i>
+   <i class="fa fa-star {%if com.rate > 1 %} checked {%endif%}"></i>
+  
+  </div>
+          </div>
+          <p class="p-3">{{com.comment}}</p>
+       
+  
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+  </section>
+  <hr>
+
+
+
+{%block footer%}
+{%include 'partials/footer.html'%}
+{%endblock%}
+
+
+{%endblock%}

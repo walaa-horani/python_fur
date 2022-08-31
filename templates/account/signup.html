@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% load widget_tweaks %}
+{%load static%}
+
+
+{% load mptt_tags %}
+{%block title %} signup {% endblock %}
+{%block content%}
+<div class="container log">
+  <h1 class="text-center mb-5 mt-5">signup</h1>
+     <div class="box box2">
+    <form method="post" novalidate>
+      {%csrf_token%}
+      {%include 'partials/form.html' %}
+        <div class="log-btn text-center">
+           <button type="submit" class="btn btn-danger w-100 mt-3  ">register</button>
+           <div class="mt-3 card-footer">
+           <span>already have an account?  <a href="{%url 'login' %}">login</a> </span></div>
+             </div>
+        </div>
+
+    </form>
+</div>
+{%block footer%}
+{%include 'partials/footer.html'%}
+{%endblock%}
+{%endblock%}

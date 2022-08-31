@@ -1,0 +1,83 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block sidebar%}
+{%include 'partials/sidebar.html'%}
+{%endblock%}
+
+
+
+{%block content%}
+
+<div class="container  mt-5   p-5">
+
+
+    <h2 class="text-center box-title mb-5">my orders</h2>
+    
+  
+        {%if not request.user.is_authenticated or request.user.is_anonymous %}
+    {%elif all_orders%}
+    {%if  all_orders.count > 0%}
+    
+    <table class="table table-hover table-striped">
+        <thead>
+          <tr class="text-center">
+            
+            <th scope="col">order number</th>
+            <th scope="col">receiver</th>
+            <th scope="col">number of products</th>
+            
+             <th scope="col">total</th>
+              <th scope="col">is it arrived ?</th>
+          </tr>
+        </thead>
+        <tbody>
+    {%endif%}
+        {%for order in all_orders%}
+        <tr class="text-center">
+        <th scope="row">
+            {{order.id}}
+            
+        </th>
+        <td class="text-center">   
+            {{request.user.first_name}} {{request.user.last_name}}
+        </td>
+
+        
+            
+        </td>
+
+        <td class="text-center">
+            {{order.items_count}}
+        </td>
+
+       
+        <td class="text-center" >
+            {{order.total}}
+        </td>
+
+        <td class="text-center">
+            {%if order.is_finished == True%}
+                yes
+               {%else%} 
+               no
+            {%endif%}
+        </td>
+        </tr>
+        {%endfor%}
+        {%if  all_orders.count > 0%}
+    </tbody>
+</table>  
+        {%endif%}
+    
+    {%else%}
+
+</div>
+</div>
+
+        <h4 class="alert-alert-info">no orders here</h4>
+
+
+        {%endif%}
+    </div>
+    {%endblock%}

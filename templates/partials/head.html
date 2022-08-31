@@ -1,0 +1,58 @@
+{%load static%}
+
+
+
+
+
+
+
+
+<div class="nav1">
+    <nav class="navbar navbar-expand-lg navbar-light  ">
+        <div class="container">
+        <a class="navbar-brand" href="#"><img src="{%static 'img/e-furniture.png'%}" alt=""></a>
+        <form action="{% url 'search' %}" method="GET">
+         
+        <div class="input-group mb-3">
+           
+            <input name="query" type="text" class="form-control" placeholder="search " id="query" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <select name="cat" id="">
+              <option value="0"> Category</option>
+              {%for rs in category%}
+              <option value="{{rs.id}}">{{rs.title}}</option>
+              {%endfor%}
+              
+            </select>
+            <div class="input-group-append">
+              <button type="submit" class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></button>
+            </div>
+     
+          </div>
+        </form>
+        {%if request.user.is_authenticated and not request.user.is_anonymous%}
+        <div class="d-flex user-info">
+          <a href="{%url 'update_profile'%}"><i class="fas fa-user"></i></a>  
+
+          <a href="{%url 'cart'%}"> <i class="fas fa-shopping-cart"></i></a> 
+           <a href="{%url 'favourite_list'%}"> <i class="fas fa-heart"></i></a>
+            {%else%}
+            <div class="nav-btns">
+                <a class="btn1" href="{%url 'login'%}">login</a>
+                <a href="{%url 'signup'%}">register</a>
+            </div>
+            {%endif%}
+        </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+    <div class="nav2">
+        <nav> 
+            <ul class="main-nav">
+                <li class="active2">category</li>
+                <li><a href="{%url 'store'%}"> Home</a>   </li>
+                <li><a href="{%url 'about' %}"> about us</a>   </li>
+                <li><a href=""> our team</a>   </li>
+                <li><a href="{%url 'contact_us' %}"> contact us</a>   </li>
+            </ul>
+        

@@ -1,0 +1,44 @@
+
+
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+{%block title %} my favourite-list {% endblock %}
+{%block content%}
+<div class="container mt-5">
+
+
+</div>
+<section class="mt-5">
+
+<div class="container fav">
+  <div class="row">
+    {%for pro in products%}
+   
+    <div class="col-md-6 col-sm-12">
+    
+      <div class="card" style="width: w-100;">
+      
+      <a href="{%url 'remove_fav'  pro.slug %}">  <i class="fas fa-times"></i></a>
+    
+      <a href="{%url 'product_details' pro.id pro.slug %}">  <img src="{{pro.image.url}}" class="card-img-top img-fluid" alt="..."></a>
+        <div class="card-body">
+          <small class="card-title text-muted">{{pro.title}}</small><br>
+          <strong class="card-text">{{pro.price}}</strong><br><br>
+         
+        </div>
+        
+      </div>
+     
+    </div>
+    {%empty%}
+    <h4 class="alert alert-warning d-block w-100">no favourite products here</h4>
+    {%endfor%}
+  </div>
+
+</div>
+</section>
+{%include 'partials/footer.html' %}
+{%endblock%}
+
+

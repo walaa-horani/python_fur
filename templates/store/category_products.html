@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load mptt_tags %}
+
+
+{%block title %} category-products {% endblock %}
+
+
+{%block content%}
+<div class="category">
+
+
+<div class="container">
+    <div class="row ">
+
+      {%for pro in products%}
+              <div class="col-md-4">
+                <div class="card" style="width: w-100;">
+                <a href="{%url 'product_details' pro.id pro.slug %}">  <img src="{{pro.image.url}}" class="card-img-top img-fluid" alt="..."></a>
+                  <div class="card-body">
+                      <div class="new-flex">
+
+                    
+                    
+                    <small class="card-title text-truncate text-muted">{{pro.title}}</small><br>
+                    {%if pro.new == True%}
+                    <button class="new-btn">new</button>
+                  {%endif%}
+                  {%if pro.featured == True%}
+                  <button class="featured-btn">featured</button>
+                {%endif%}
+                </div>
+                    {%if pro.dis_price > 0%}
+                   <div class="new ">
+                     <del>{{pro.price}} TL</del>
+                     <strong>{{pro.dis_price}} TL</strong>
+                    
+                    
+              </div>
+                     {%else%}
+                     <strong>{{pro.price}} TL</strong>
+                     {%endif%}
+                    
+                  </div>
+                </div>
+              </div>
+              {%endfor%}
+    </div>
+</div>
+</div>
+{%include 'partials/footer.html' %}
+{%endblock%}
